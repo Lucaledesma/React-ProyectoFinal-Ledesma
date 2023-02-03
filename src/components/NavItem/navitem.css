@@ -1,0 +1,10 @@
+.nav-link {
+    text-decoration: none;
+    color:#fee801;
+    text-align: center;
+    font-weight: 400;
+}  
+  
+.nav-link:hover {
+    font-weight: 600;
+}
