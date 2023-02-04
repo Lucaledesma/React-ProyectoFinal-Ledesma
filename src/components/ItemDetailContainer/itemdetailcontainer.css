@@ -23,12 +23,12 @@
   justify-content: center;
   align-items: center;
 
-  padding-inline: 2.5rem;
+  padding: 1rem 2.5rem;
 
   gap: 2rem;
 }
 
-.card-detail_detail{
+.card-detail_detail {
   display: flex;
   flex-direction: column;
   justify-content: center;

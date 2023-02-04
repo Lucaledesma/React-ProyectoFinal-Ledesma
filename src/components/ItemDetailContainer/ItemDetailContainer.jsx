@@ -1,9 +1,11 @@
-import Button from "../ButtonDetalle/ButtonDetalle";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleItem } from "../../data/asyncMockPromise";
+import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
 import ItemCount from "../ItemCount/ItemCount";
 import "./itemdetailcontainer.css";
+
+import { Link } from "react-router-dom";
 
 function ItemDetailContainer() {
   const [producto, setProducto] = useState([]);
@@ -20,6 +22,10 @@ function ItemDetailContainer() {
       });
   }, [itemid]);
 
+  function handleAddToCart(count) {
+    alert(`Agregaste ${producto.titulo} (Cantidad = ${count}) al carrito`);
+  }
+
   return (
     <div className="card-detail_main">
 
@@ -35,9 +41,11 @@ function ItemDetailContainer() {
           <small>{producto.detalle}</small>
         </div>
 
-        <ItemCount stockDisponible={producto.stock} />
+        <ItemCount onAddToCart={handleAddToCart} stockDisponible={producto.stock} />
 
-        <Button nombre="Agregar al Carrito"></Button>
+        <Link to="/cart">
+            <ButtonDetalle nombre="Ir al Carrito"></ButtonDetalle>
+        </Link>
       </div>
 
     </div>

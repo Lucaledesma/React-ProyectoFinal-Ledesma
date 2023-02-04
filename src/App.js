@@ -3,6 +3,7 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import NavBar from './components/NavBar/NavBar';
 import PageNotFound from "./pages/PageNotFound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CartContainer from './components/CartContainer/CartContainer';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/category/:categoryid" element={<ItemListContainer />} />
 
         <Route path="/item/:itemid" element={<ItemDetailContainer />} />
+
+        <Route path="/cart" element={<CartContainer />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

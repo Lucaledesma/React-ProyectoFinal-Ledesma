@@ -1,8 +1,9 @@
-import React from 'react';
+import {React, useState} from 'react';
+import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
 import './itemcount.css';
 
-function ItemCount( {stockDisponible} ) {
-  const [cant, setCant] = React.useState(1);
+function ItemCount( {stockDisponible, onAddToCart} ) {
+  const [cant, setCant] = useState(1);
 
   function sumar() {
     if (cant < Number(`${stockDisponible}`)) {
@@ -17,15 +18,21 @@ function ItemCount( {stockDisponible} ) {
   }
 
   return (
-    <div className="container">
-      <button onClick={restar} className="btnRestar">
-        -
-      </button>
-      <span className="numero"> {cant} </span>
-      <button onClick={sumar} className="btnSumar">
-        +
-      </button>
-    </div>
+    <div className="itemCount-container">
+      <p>Agregar cantidad de productos al carrito</p>
+
+      <div className="container">
+        <button onClick={restar} className="btnRestar">
+          -
+        </button>
+        <span className="numero"> {cant} </span>
+        <button onClick={sumar} className="btnSumar">
+          +
+        </button>
+      </div>
+
+      <ButtonDetalle onClick={() => onAddToCart(cant)} nombre="Agregar al Carrito"></ButtonDetalle>
+    </div>    
   );
 }
 
