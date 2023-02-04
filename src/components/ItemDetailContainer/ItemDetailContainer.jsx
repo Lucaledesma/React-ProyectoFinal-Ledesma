@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleItem } from "../../data/asyncMockPromise";
 import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
 import ItemCount from "../ItemCount/ItemCount";
+import { cartContext } from "../../context/cartContext";
 import "./itemdetailcontainer.css";
 
 import { Link } from "react-router-dom";
@@ -11,6 +12,14 @@ function ItemDetailContainer() {
   const [producto, setProducto] = useState([]);
 
   let {itemid} = useParams();
+
+  const { addItem } = useContext(cartContext); //removeItem
+
+  function handleAddToCart(count) {
+    // alert(`Agregaste ${producto.titulo} (Cantidad = ${count}) al carrito`);
+    // producto.cantidad = count;
+    addItem(producto, count);
+  }
 
   useEffect(() => {
     getSingleItem(itemid)
@@ -21,10 +30,6 @@ function ItemDetailContainer() {
         alert(`Error: ${error}`)
       });
   }, [itemid]);
-
-  function handleAddToCart(count) {
-    alert(`Agregaste ${producto.titulo} (Cantidad = ${count}) al carrito`);
-  }
 
   return (
     <div className="card-detail_main">
