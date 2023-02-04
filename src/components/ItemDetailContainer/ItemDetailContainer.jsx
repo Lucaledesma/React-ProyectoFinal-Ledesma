@@ -1,23 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleItem } from "../../data/asyncMockPromise";
-import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
 import ItemCount from "../ItemCount/ItemCount";
 import { cartContext } from "../../context/cartContext";
 import "./itemdetailcontainer.css";
-
-import { Link } from "react-router-dom";
+import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
 
 function ItemDetailContainer() {
   const [producto, setProducto] = useState([]);
 
   let {itemid} = useParams();
 
-  const { addItem } = useContext(cartContext); //removeItem
+  const { addItem, removeItem } = useContext(cartContext);
 
   function handleAddToCart(count) {
-    // alert(`Agregaste ${producto.titulo} (Cantidad = ${count}) al carrito`);
-    // producto.cantidad = count;
     addItem(producto, count);
   }
 
@@ -48,9 +44,7 @@ function ItemDetailContainer() {
 
         <ItemCount onAddToCart={handleAddToCart} stockDisponible={producto.stock} />
 
-        <Link to="/cart">
-            <ButtonDetalle nombre="Ir al Carrito"></ButtonDetalle>
-        </Link>
+        <ButtonDetalle onClick={() => removeItem(producto)} nombre="Eliminar Item"></ButtonDetalle>
       </div>
 
     </div>

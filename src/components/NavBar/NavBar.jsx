@@ -1,9 +1,14 @@
+import React, { useContext } from "react";
 import CartWidget from "../CartWidget/CartWidget";
 import Logo from "../Logo/Logo";
 import NavItem from "../NavItem/NavItem";
+import { cartContext } from "../../context/cartContext";
 import "./navbar.css";
 
 function NavBar() {
+
+  const { clearCart } = useContext(cartContext);
+
   return (
     <nav className="nav-header">
       <Logo titulo="TiendaVirtual"/>
@@ -15,6 +20,8 @@ function NavBar() {
         <NavItem nombre="Mundo Abierto" categoria="/category/mundoabierto"/>
 
         <CartWidget />
+
+        <button className="btn-vaciar" onClick={ clearCart }>Vaciar Carrito</button>
       </ul>
     </nav>
   );
