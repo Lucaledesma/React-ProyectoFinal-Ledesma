@@ -2,31 +2,63 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import getItems, {getItemsByCategory} from "../../data/asyncMockPromise";
 import ItemList from "../ItemList/ItemList";
+import Loader from "../Loader/Loader";
+import Notification from "../Notification/Notification";
 import './itemlistcontainer.css';
 
 function ItemListContainer () {
 
-    const [productos, setProductos] = useState([]);
-  
-    let {categoryid} = useParams();
+  const [productos, setProductos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-      if (categoryid) {
-        getItemsByCategory(categoryid).then((response) => {
-          setProductos(response);
-        });
-      } else {
-        getItems().then((response) => {
-          setProductos(response);
-        });
-      }
-    }, [categoryid]);
+  const [notification, setNotification] = useState({
+    type: "default",
+    text: "Cargando datos",
+  });
   
-    return (
-      <>
-        <ItemList productos={productos} />
-      </>
-    );
+  let {categoryid} = useParams();
+
+  useEffect(() => {
+    if (categoryid) {
+      getItemsByCategory(categoryid).then((response) => {
+        setProductos(response);
+        setIsLoading(false);
+      });
+    } else {
+      getItems()
+      .then((response) => {
+        setProductos(response);
+        setNotification({
+          type: "success",
+          text: `Se cargaron ${response.length} productos correctamente`,
+        });
+      })
+      .catch((error) => {
+        setNotification({
+          type: "error",
+          text: `Error cargando los productos: ${error}`,
+        });
+      })
+      .finally(()=>{
+        setIsLoading(false);
+      });
+    }
+  }, [categoryid]);
+  
+  return (
+    <>
+      {notification.type && <Notification notification={notification} />}
+
+      {
+        isLoading ?
+          <div className="loader-container">
+            <Loader />
+          </div>
+        :
+          <ItemList productos={productos} />
+      }
+    </>
+  );
 }
 
 export default ItemListContainer;

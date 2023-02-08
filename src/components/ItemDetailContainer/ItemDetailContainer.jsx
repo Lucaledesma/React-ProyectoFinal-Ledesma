@@ -4,14 +4,18 @@ import { getSingleItem } from "../../data/asyncMockPromise";
 import ItemCount from "../ItemCount/ItemCount";
 import { cartContext } from "../../context/cartContext";
 import "./itemdetailcontainer.css";
+import Loader from "../Loader/Loader";
 import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
+
+import { Link } from 'react-router-dom';
 
 function ItemDetailContainer() {
   const [producto, setProducto] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   let {itemid} = useParams();
 
-  const { addItem, removeItem } = useContext(cartContext);
+  const { cart, addItem } = useContext(cartContext);
 
   function handleAddToCart(count) {
     addItem(producto, count);
@@ -23,31 +27,48 @@ function ItemDetailContainer() {
         setProducto(response);
       })
       .catch((error) => {
-        alert(`Error: ${error}`)
+        alert(`Error: ${error}`);
+      })
+      .finally(()=>{
+        setIsLoading(false);
       });
   }, [itemid]);
 
   return (
-    <div className="card-detail_main">
+    <>
+      {
+        isLoading ?
+          <div className="loader-container">
+            <Loader />
+          </div>
+        :
+          <div className="card-detail_main">
 
-      <div className="card-detail_img">
-        <img src={producto.imagen} alt={producto.titulo}></img>
-      </div>
+            <div className="card-detail_img">
+              <img src={producto.imagen} alt={producto.titulo}></img>
+            </div>
 
-      <div className="card-right">
-        <div className="card-detail_detail">
-          <h1>{producto.titulo}</h1>
-          <h2 className="priceTag">$ {producto.precio}</h2>
-          <h3>Stock disponible: {producto.stock}</h3>
-          <small>{producto.detalle}</small>
-        </div>
+            <div className="card-right">
+              <div className="card-detail_detail">
+                <h1>{producto.titulo}</h1>
+                <h2 className="priceTag">$ {producto.precio}</h2>
+                <h3>Stock disponible: {producto.stock}</h3>
+                <small>{producto.detalle}</small>
+              </div>
 
-        <ItemCount onAddToCart={handleAddToCart} stockDisponible={producto.stock} />
+              {
+                (cart.includes(producto)) ?
+                  <Link to="/cart">
+                    <ButtonDetalle nombre="Ir al carrito"></ButtonDetalle>
+                  </Link>
+                :
+                  <ItemCount onAddToCart={handleAddToCart} stockDisponible={producto.stock} />
+              }
+            </div>
 
-        <ButtonDetalle onClick={() => removeItem(producto)} nombre="Eliminar Item"></ButtonDetalle>
-      </div>
-
-    </div>
+          </div>
+      }
+    </>
   );
 }
 

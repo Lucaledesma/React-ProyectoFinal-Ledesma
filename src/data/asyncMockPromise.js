@@ -218,10 +218,11 @@ const productos = [
 ];
 
 export default function getItems() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
+        // reject ("No se encontraron los productos");
         resolve(productos);
-      }, 0);
+      }, 200);
     });
 }
 
@@ -235,7 +236,7 @@ export function getSingleItem(itemid) {
       setTimeout(() => {
         if (singleItem !== undefined) resolve(singleItem);
         else reject("Item no encotrado.");
-      }, 0);
+      }, 500);
     });
 }
 

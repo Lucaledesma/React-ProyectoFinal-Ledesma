@@ -12,3 +12,10 @@
     padding-top: 1rem;
     color: #27292b;
 }
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+}

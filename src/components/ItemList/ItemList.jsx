@@ -8,11 +8,12 @@ function ItemList( {productos} ) {
       {productos.map((item) => (
         <Item
           key={item.id}
-          id={item.id}
-          titulo={item.titulo}
-          imagen={item.imagen}
-          stock={item.stock}
-          precio={item.precio}
+          {...item}
+          // id={item.id}
+          // titulo={item.titulo}
+          // imagen={item.imagen}
+          // stock={item.stock}
+          // precio={item.precio}
         />
       ))}
     </div>

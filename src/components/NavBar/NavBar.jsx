@@ -7,7 +7,7 @@ import "./navbar.css";
 
 function NavBar() {
 
-  const { clearCart } = useContext(cartContext);
+  const { getCantItems } = useContext(cartContext);
 
   return (
     <nav className="nav-header">
@@ -19,9 +19,10 @@ function NavBar() {
         <NavItem nombre="Disparos" categoria="/category/disparos"/>
         <NavItem nombre="Mundo Abierto" categoria="/category/mundoabierto"/>
 
-        <CartWidget />
-
-        <button className="btn-vaciar" onClick={ clearCart }>Vaciar Carrito</button>
+        {
+          (getCantItems() !== 0) && <CartWidget />
+        }
+        {/* <button className="btn-vaciar" onClick={ clearCart }>Vaciar Carrito</button> */}
       </ul>
     </nav>
   );

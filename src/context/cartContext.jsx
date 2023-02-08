@@ -60,13 +60,16 @@ export function CartContextProvider( {children} ) {
 
         /* COPIAR CARRITO Y AGREGAR ITEM FORMA 2 */
         setCart([...cart, item]);
-    }
+      }
   }
 
   // REMOVER un item del Carrito
-  function removeItem(producto) {
+  function removeItem(idProduct) {
 
-    if (cart.includes(producto)) {
+    let newCart = cart.filter((item) => item.id !== idProduct);
+    setCart([...newCart]);
+
+    /*if (cart.includes(producto)) {
 
       let newCart = cart.filter((item) => item.id !== producto.id);
 
@@ -90,7 +93,7 @@ export function CartContextProvider( {children} ) {
         iconColor: 'red',
         confirmButtonColor: '#27292b',
       })
-    }
+    }*/
   }
 
   // Vaciar Carrito
