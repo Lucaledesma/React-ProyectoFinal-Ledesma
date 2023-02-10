@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleItem } from "../../data/asyncMockPromise";
+// import { getSingleItem } from "../../data/asyncMockPromise";
+import { getSingleItem } from "../../data/firebase"; 
 import ItemCount from "../ItemCount/ItemCount";
 import { cartContext } from "../../context/cartContext";
 import "./itemdetailcontainer.css";
@@ -15,7 +16,9 @@ function ItemDetailContainer() {
 
   let {itemid} = useParams();
 
-  const { cart, addItem } = useContext(cartContext);
+  const { cart, addItem, getItem } = useContext(cartContext);
+
+  const itemCart = getItem(producto.id);
 
   function handleAddToCart(count) {
     addItem(producto, count);
@@ -56,8 +59,9 @@ function ItemDetailContainer() {
                 <small>{producto.detalle}</small>
               </div>
 
-              {
-                (cart.includes(producto)) ?
+              { /* Retorna true si hay un item en el carrito con el id del producto
+                Si el item esta en el carrito y ya no hay mas stock para agregar, se deja de mostrar el itemCount */
+                ((cart.some((item) => item.id === producto.id)) && itemCart.cantidad === producto.stock) ?
                   <Link to="/cart">
                     <ButtonDetalle nombre="Ir al carrito"></ButtonDetalle>
                   </Link>

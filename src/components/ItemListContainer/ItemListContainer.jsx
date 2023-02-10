@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import getItems, {getItemsByCategory} from "../../data/asyncMockPromise";
+// import getItems, { getItemsByCategory } from "../../data/asyncMockPromise";
+import { getItems, getItemsByCategory } from "../../data/firebase";
 import ItemList from "../ItemList/ItemList";
 import Loader from "../Loader/Loader";
 import Notification from "../Notification/Notification";

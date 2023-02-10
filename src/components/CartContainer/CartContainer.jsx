@@ -3,12 +3,40 @@ import CartList from '../CartList/CartList';
 import { cartContext } from '../../context/cartContext';
 import "./cartcontainer.css";
 import ButtonDetalle from "../ButtonDetalle/ButtonDetalle";
-
-import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
+import { Link, useNavigate } from 'react-router-dom';
+import { createOrder } from '../../data/firebase';
+import CartForm from '../CartForm/CartForm';
 
 function CartContainer() {
-
   const { cart, getCantItems, getTotalPriceInCart, clearCart } = useContext(cartContext);
+  const navigateTo = useNavigate();
+
+  async function handleCheckOut(userData) {
+    const newCart = cart.map ((item) => ({id: item.id, titulo: item.titulo, precio: item.precio, cantidad: item.cantidad, }));
+
+    const order = {
+      buyer: userData,
+      items: newCart,
+      date: new Date(),
+      total: getTotalPriceInCart(),
+    };
+
+    let id = await createOrder(order);
+
+    Swal.fire({
+      text: "Compra realizada",
+      icon: 'success',
+      background: '#fee801',
+      color: '#27292b',
+      iconColor: 'green',
+      confirmButtonColor: '#27292b',
+    })
+
+    navigateTo(`/orders/${id}`);
+
+    clearCart();
+  }
 
   return (
     <>
@@ -18,9 +46,9 @@ function CartContainer() {
             <CartList cart={cart} />
             <div className="cartContainer-acciones">
               <p>El total de tu compra es de ${getTotalPriceInCart()}</p>
+              <CartForm onSubmit={handleCheckOut}/>
               <div className="cartContainer-acciones__btn">
-                <ButtonDetalle nombre="Vaciar carrito" onClick={clearCart}></ButtonDetalle>
-                <ButtonDetalle nombre="Finalizar Compra" onClick={clearCart}></ButtonDetalle>
+                <ButtonDetalle nombre="Vaciar carrito" onClick={clearCart} />
               </div>
             </div>
           </div>
@@ -29,7 +57,7 @@ function CartContainer() {
             <h2>No hay items en el carrito.</h2>
             <h3>¡Vuelva al menú para continuar!</h3>
             <Link to="/">
-              <ButtonDetalle nombre="Volver al menu"></ButtonDetalle>
+              <ButtonDetalle nombre="Volver al menu" />
             </Link>
           </div>
       }

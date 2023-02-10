@@ -113,7 +113,12 @@ export function CartContextProvider( {children} ) {
     return cantidad;
   }
 
-  const value = { cart, addItem, removeItem, clearCart, getCantItems, getTotalPriceInCart};
+  function getItem(itemid) {
+    let itemCart = cart.find((item) => item.id === itemid);
+    return itemCart;
+  }
+
+  const value = { cart, addItem, removeItem, clearCart, getCantItems, getTotalPriceInCart, getItem };
 
   return (
     <cartContext.Provider value={value}>{children}</cartContext.Provider>

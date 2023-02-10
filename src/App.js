@@ -5,6 +5,7 @@ import PageNotFound from "./pages/PageNotFound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CartContainer from './components/CartContainer/CartContainer';
 import { CartContextProvider } from './context/cartContext';
+import OrderDetail from './components/OrderDetail/OrderDetail';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
 
           <Route path="/cart" element={<CartContainer />} />
 
+          <Route path="/orders/:orderid" element={<OrderDetail />} />
+          
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

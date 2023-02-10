@@ -12,8 +12,8 @@ function Item({ id, titulo, imagen, stock, precio }) {
         <img src={imagen} alt={titulo}></img>
         <div className="producto-descripcion">
             <p><b>{titulo}</b></p>
-            <p>${precio}</p>
-            <p><b>Stock disponible:</b> {stock}</p>
+            <p><small>Precio: </small>${precio}</p>
+            <p><small>Stock: </small>{stock}</p>
             <Link to={urlDetail}>
                 <ButtonDetalle nombre="Ver Detalle"></ButtonDetalle>
             </Link>

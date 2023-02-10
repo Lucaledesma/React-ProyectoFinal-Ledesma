@@ -248,4 +248,4 @@ export function getItemsByCategory(categoryid) {
         resolve(itemsCat);
       }, 0);
     });
-  }
+}
