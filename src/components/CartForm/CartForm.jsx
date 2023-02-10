@@ -5,6 +5,7 @@ import './cartform.css';
 function CartForm( {onSubmit} ) {
     const [userData, setUserData] = useState({
         name: '',
+        surname: '',
         email: '',
         phone: '',
     });
@@ -28,27 +29,23 @@ function CartForm( {onSubmit} ) {
     function clearData() {
         setUserData({
             name: '',
+            surname: '',
             email: '',
             phone: '', 
         });
     }
 
-    // let arrayUserData = Object.keys(userData);
-
     return (
         <form className="cartForm" onSubmit={handleSubmit}>
             <h3>Finalizar Orden de Compra</h3>
-
-            {/*{
-                arrayUserData.map( field => <InputForm label={field} name={field} value={userData[field]}onInputChange={onInputChange}/>)
-            }*/}
-
+            
             <InputForm label="Nombre" name="name" value={userData.name} onInputChange={onInputChange}/>
+            <InputForm label="Apellido" name="surname" value={userData.surname} onInputChange={onInputChange}/>
             <InputForm label="Email" name="email" value={userData.email} onInputChange={onInputChange}/>
             <InputForm label="Telefono" name="phone" value={userData.phone} onInputChange={onInputChange}/>
 
             <div className="cartForm-btn">
-                <button>Crear orden</button>
+                <button type="submit">Crear orden</button>
                 <button onClick={clearData}>Limpiar datos</button>
             </div>
         </form>

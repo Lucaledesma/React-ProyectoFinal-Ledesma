@@ -9,11 +9,6 @@ function ItemList( {productos} ) {
         <Item
           key={item.id}
           {...item}
-          // id={item.id}
-          // titulo={item.titulo}
-          // imagen={item.imagen}
-          // stock={item.stock}
-          // precio={item.precio}
         />
       ))}
     </div>

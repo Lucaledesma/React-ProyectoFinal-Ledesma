@@ -65,35 +65,8 @@ export function CartContextProvider( {children} ) {
 
   // REMOVER un item del Carrito
   function removeItem(idProduct) {
-
     let newCart = cart.filter((item) => item.id !== idProduct);
     setCart([...newCart]);
-
-    /*if (cart.includes(producto)) {
-
-      let newCart = cart.filter((item) => item.id !== producto.id);
-
-      setCart([...newCart]);
-
-      Swal.fire({
-        text: `${producto.titulo} eliminado del carrito`,
-        icon: 'success',
-        background: '#fee801',
-        color: '#27292b',
-        iconColor: 'green',
-        confirmButtonColor: '#27292b',
-      })
-      
-    } else {
-      Swal.fire({
-        text: `${producto.titulo} no se encuentra en el carrito`,
-        icon: 'error',
-        background: '#fee801',
-        color: '#27292b',
-        iconColor: 'red',
-        confirmButtonColor: '#27292b',
-      })
-    }*/
   }
 
   // Vaciar Carrito
@@ -113,6 +86,7 @@ export function CartContextProvider( {children} ) {
     return cantidad;
   }
 
+  // Obtener item del carrito
   function getItem(itemid) {
     let itemCart = cart.find((item) => item.id === itemid);
     return itemCart;

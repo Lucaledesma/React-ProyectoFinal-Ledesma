@@ -22,7 +22,6 @@ function NavBar() {
         {
           (getCantItems() !== 0) && <CartWidget />
         }
-        {/* <button className="btn-vaciar" onClick={ clearCart }>Vaciar Carrito</button> */}
       </ul>
     </nav>
   );
